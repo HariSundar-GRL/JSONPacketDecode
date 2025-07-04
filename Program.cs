@@ -72,7 +72,19 @@ namespace JsonDecode{
                                 (valueDescription, valueDisplay) = decoderobj.GetValueInfo(currentField, itemp);
                             }
                             
-                            DisplayPayloadvalues.Add($"{payload_name} : {itemp}");
+                            // Add to DisplayPayloadvalues based on Displayable flag
+                            if (currentField != null && currentField.Displayable)
+                            {
+                                if (!string.IsNullOrEmpty(valueDisplay))
+                                {
+                                    DisplayPayloadvalues.Add($"{payload_name} : {valueDisplay}");
+                                }
+                                else
+                                {
+                                    DisplayPayloadvalues.Add($"{payload_name} : {itemp}");
+                                }
+                            }
+                            
                             Console.WriteLine($"    Payload Name : {payload_name}");
                             Console.WriteLine($"    Bit Order : {strbitorder}");
                             Console.WriteLine($"    Decoded Value : {itemp}");
@@ -85,7 +97,7 @@ namespace JsonDecode{
                             }
                             Console.WriteLine($"    ----------------------------------");
                         }
-                        Console.WriteLine($"    Display String : {packet.PacketName}[{packet.Header}] - {string.Join("| ", DisplayPayloadvalues)}");
+                        Console.WriteLine($"    Display String : {packet.PacketName}[{packet.Header}] - {{ {string.Join(" | ", DisplayPayloadvalues)} }}");
                         Console.WriteLine($"    ----------------------------------");
                     }
                 }

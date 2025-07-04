@@ -41,6 +41,7 @@ namespace JSONPacketDecode
         public int Max { get; set; }
         public int Min { get; set; }
         public Dictionary<string, ValueInfo>? Values { get; set; }
+        public bool Displayable { get; set; }
     }
 
     public class ValueInfo
